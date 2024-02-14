@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Detail</title>
+</head>
+<body>
+    <h2>{{ book.title }}</h2>
+    <p>Authors: {% for author in book.authors.all %}{{ author.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    <p>Publisher: {{ book.publisher.name }}</p>
+    <p>Publication Date: {{ book.publication_date }}</p>
+
+    <h3>Comments:</h3>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <strong>{{ comment.user.username }}</strong> - {{ comment.comment }}
+                <span>{{ comment.created_at }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add a Comment:</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
