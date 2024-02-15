@@ -1,5 +1,5 @@
 from django import forms
-from .models import Book, Author, Publisher
+from .models import Book, Author, Publisher, BookComment
 
 class BookForm(forms.ModelForm):
     class Meta:
@@ -32,4 +32,6 @@ class PublisherForm(forms.ModelForm):
 
 
 class CommentForm(forms.Form):
-    comment = forms.CharField(label='Your comment', widget=forms.Textarea)
+    comment = forms.CharField(label='Your Comment', widget=forms.Textarea)
+    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]  # List of tuples for rating choices (1 to 5)
+    rating = forms.ChoiceField(label='Your Rating', choices=RATING_CHOICES)

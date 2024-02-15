@@ -19,7 +19,7 @@
         {% for book in books %}
             <li>
                 <h2><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></h2>
-                
+                <p>Average Rating: {{ book.average_rating|default:"No ratings yet" }}</p>
                 {% if request.user == book.upload_user %}
                     | <a href="{% url 'edit_book' book.id %}">Edit</a> | 
                     <a href="{% url 'delete_book' book.id %}">Delete</a>

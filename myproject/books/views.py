@@ -4,12 +4,15 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .models import Book, BookComment
 from .forms import BookForm, AuthorForm, PublisherForm, CommentForm
+from django.db.models import Sum,F, ExpressionWrapper, DecimalField, Avg, Count
 
 
 def home(request):
     books = Book.objects.all()
     form = BookForm()  # Create an instance of BookForm
-    return render(request, 'home.html', {'books': books, 'form': form})
+    books = Book.objects.annotate(avg_rating=Avg('bookcomment__rating')).all()
+
+    return render(request, 'home.html', {'books': books,'form': form})
 
 
 def register(request):
@@ -109,16 +112,28 @@ def delete_book(request, book_id):
 @login_required
 def book_detail(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
-    comments = book.bookcomment_set.all()  # Retrieve all comments for the book
+    comments = book.bookcomment_set.all()
     form = CommentForm()
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
             new_comment_text = form.cleaned_data['comment']
-            # Create a new comment associated with the current user and book
-            new_comment = BookComment.objects.create(book=book, user=request.user, comment=new_comment_text)
-            # Optionally, you can redirect to a success page or refresh the current page
-            # return redirect('book_detail', book_id=book_id)
-    
+            new_rating = form.cleaned_data['rating']
+            # Create the new comment
+            new_comment = BookComment.objects.create(book=book, user=request.user, comment=new_comment_text, rating=new_rating)
+            # Update average rating and total ratings for the book
+            update_book_ratings(book)
+            return redirect('book_detail', book_id=book_id)
+
     return render(request, 'book_detail.html', {'book': book, 'comments': comments, 'form': form})
+
+def update_book_ratings(book):
+    # Calculate new average rating and total ratings
+    ratings_info = book.bookcomment_set.aggregate(avg_rating=Avg('rating'), total_ratings=Count('rating'))
+    avg_rating = ratings_info['avg_rating'] or 0  # Handle case where there are no ratings yet
+    total_ratings = ratings_info['total_ratings']
+    # Update the book with the new ratings
+    book.average_rating = avg_rating
+    book.total_ratings = total_ratings
+    book.save()

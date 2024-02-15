@@ -14,18 +14,22 @@
     <h3>Comments:</h3>
     <ul>
         {% for comment in comments %}
-            <li>
-                <strong>{{ comment.user.username }}</strong> - {{ comment.comment }}
-                <span>{{ comment.created_at }}</span>
-            </li>
+        <div class="comment">
+            <p><strong>{{ comment.user.username }}</strong>: {{ comment.comment }}</p>
+            <p>Rating: {{ comment.rating }}</p>
+        </div>
         {% endfor %}
+    
+    
     </ul>
 
     <h3>Add a Comment:</h3>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.comment }}
+        {{ form.rating }}
         <button type="submit">Submit</button>
     </form>
+    
 </body>
 </html>
