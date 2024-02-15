@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstar</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="navbar-brand">Bookstar</h1>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li> <!-- Home button -->
+                {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
+                    <li class="nav-item"><a href="{% url 'add_book' %}" class="nav-link">Add Book</a></li>
+                    <li class="nav-item"><a href="{% url 'add_publisher' %}" class="nav-link">Add Publisher</a></li>
+                    <li class="nav-item"><a href="{% url 'add_author' %}" class="nav-link">Add Author</a></li>
+                {% else %}
+                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="pale-background">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

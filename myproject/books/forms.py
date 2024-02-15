@@ -4,7 +4,7 @@ from .models import Book, Author, Publisher, BookComment
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
-        fields = ['title', 'authors', 'publisher', 'publication_date', 'comments']  # Include 'comments' field
+        fields = ['title', 'authors', 'publisher', 'publication_date']  # Include 'comments' field
         widgets = {
             'publication_date': forms.DateInput(attrs={'type': 'date'}),
             'authors': forms.SelectMultiple(attrs={'class': 'form-control'}),

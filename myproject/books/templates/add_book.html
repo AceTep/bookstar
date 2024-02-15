@@ -1,18 +1,12 @@
-{% load static %}  <!-- Load the static template tag library -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Book</title>
-</head>
-<body>
-    <h1>Add a New Book</h1>
+{% extends 'navbar.html' %}
+
+{% block content %}
+<div class="add-author-container">
+    <h2>Add a New Book</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Add Book</button>
+        <button type="submit" class="submit-author-button">Add Book</button>
     </form>
-</body>
-</html>
+</div>
+{% endblock %}

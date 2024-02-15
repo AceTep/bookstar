@@ -1,16 +1,21 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Book</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
 </head>
 <body>
-    <h1>Delete Book</h1>
-    <p>Are you sure you want to delete "{{ book.title }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit">Confirm Delete</button>
-    </form>
+    
+    <div class="delete-book-container">
+        <h1 class="delete-book-title">Delete Book</h1>
+        <p class="delete-book-message">Are you sure you want to delete "{{ book.title }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="confirm-delete-button">Confirm Delete</button>
+        </form>
+    </div>
 </body>
 </html>

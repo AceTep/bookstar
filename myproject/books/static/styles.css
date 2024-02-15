@@ -1,0 +1,278 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #265073;
+    color: #2D9596;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    max-width: 400px;
+    width: 100%;
+}
+.registration-container {
+    max-width: 500px;
+    width: 100%;
+}
+
+form {
+    background-color: #9AD0C2;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+button {
+    background-color: #F1FADA;
+    color: #265073;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 auto; /* Center the button horizontally */
+    display: block; /* Ensure the button takes up full width */
+    margin-top: 10px;
+}
+
+
+.register-link {
+    text-align: center;
+    margin-top: 10px;
+}
+.login-link {
+    text-align: center;
+    margin-top: 10px;
+}
+a {
+    color: #2D9596;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+.navbar {
+    background-color: #265073;
+    color: #ffffff;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.navbar-brand {
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+}
+
+.navbar-nav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item {
+    display: inline;
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+.content-wrapper {
+    margin-top: 80px; /* Adjust margin to make space for navbar */
+}
+
+.pale-background {
+    background-color: #F1FADA; /* Pale color */
+    padding: 60px;
+}
+
+h1, h2, h3 {
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+
+/* Edit and Delete Button Styles */
+.edit-button, .delete-button {
+    background-color: #265073;
+    color: #ffffff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.edit-button:hover, .delete-button:hover {
+    background-color: #1a3c63;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .nav-item {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+.naslov {
+text-align:  left;
+}
+
+.naslov:hover {
+    color: #1a3c63; /* Change hover color to match your design */
+}
+
+.add-author-container {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.add-author-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.add-author-container form {
+    margin-bottom: 20px;
+}
+
+.submit-author-button {
+    background-color: #265073;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-author-button:hover {
+    background-color: #1a3c63;
+}
+
+.book-detail-container {
+    max-width: 600px;
+    margin: 80px auto;
+    padding: 20px;
+}
+
+.book-detail-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.book-detail-container p {
+    margin-bottom: 10px;
+}
+
+.authors {
+    font-weight: bold;
+}
+
+.comments-heading, .add-comment-heading {
+    margin-top: 20px;
+}
+.comment-list {
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto; /* Add vertical scrollbar if needed */
+    padding: 0;
+}
+
+.comment {
+    margin-bottom: 20px;
+}
+
+.comment-text {
+    font-weight: bold;
+}
+
+.comment-rating {
+    color: #888888;
+}
+
+.submit-comment-button {
+    background-color: #265073;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-comment-button:hover {
+    background-color: #1a3c63;
+}
+
+.delete-book-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.delete-book-title {
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.delete-book-message {
+    margin-bottom: 20px;
+}
+
+.confirm-delete-button {
+    background-color: #265073;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.confirm-delete-button:hover {
+    background-color: #1a3c63;
+}

@@ -1,42 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Welcome to Bookstar!</h1>
+{% extends 'navbar.html' %}
 
-    {% if user.is_authenticated %}
-        <p>Hello, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
-    {% else %}
-        <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a></p>
-    {% endif %}
+{% block content %}
+<h1>Welcome to Bookstar!</h1>
 
-    <h1>Books</h1>
-    <ul>
-        {% for book in books %}
-            <li>
-                <h2><a href="{% url 'book_detail' book.id %}">{{ book.title }}</a></h2>
-                <p>Average Rating: {{ book.average_rating|default:"No ratings yet" }}</p>
-                {% if request.user == book.upload_user %}
-                    | <a href="{% url 'edit_book' book.id %}">Edit</a> | 
-                    <a href="{% url 'delete_book' book.id %}">Delete</a>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-    {% if user.is_authenticated %}
-    <a href="{% url 'add_author' %}">Add Author</a>
-    <a href="{% url 'add_publisher' %}">Add Publisher</a>
+{% if user.is_authenticated %}
+    <p class="welcome-message">Hello, {{ user.username }}!</p>
+{% else %}
+    <p class="welcome-message">Welcome! Please <a href="{% url 'login' %}" class="login-link">login</a> or <a href="{% url 'register' %}" class="register-link">register</a>.</p>
+{% endif %}
 
-    <h2>Add a New Book:</h2>
-    <form method="post" action="{% url 'add_book' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Book</button>
-    </form>
-    {% endif %}
-</body>
-</html>
+<h2>Books</h2>
+<ul class="book-list">
+    {% for book in books %}
+        <li class="book-item">
+            <h2 class="naslov"><a href="{% url 'book_detail' book.id %}" class="book-title">{{ book.title }}</a></h2>
+            <p class="average-rating">Average Rating: {{ book.average_rating|default:"No ratings yet" }}</p>
+            {% if request.user == book.upload_user %}
+                <span class="edit-delete-buttons">
+                    <a href="{% url 'edit_book' book.id %}" class="edit-button">Edit</a> 
+                    <a href="{% url 'delete_book' book.id %}" class="delete-button">Delete</a>
+                </span>
+            {% endif %}
+            <hr>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

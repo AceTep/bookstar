@@ -105,13 +105,15 @@ def edit_book(request, book_id):
 
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
-    if request.user == book.upload_user:
+    if request.method == 'POST':
         book.delete()
-    return redirect('home')
+        return redirect('home')  # Redirect to the home page after deletion
+    return render(request, 'delete_book.html', {'book': book})
 
 @login_required
 def book_detail(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
+    authors = book.authors.all()
     comments = book.bookcomment_set.all()
     form = CommentForm()
 
@@ -126,7 +128,7 @@ def book_detail(request, book_id):
             update_book_ratings(book)
             return redirect('book_detail', book_id=book_id)
 
-    return render(request, 'book_detail.html', {'book': book, 'comments': comments, 'form': form})
+    return render(request, 'book_detail.html', {'book': book, 'authors': authors, 'comments': comments, 'form': form})
 
 def update_book_ratings(book):
     # Calculate new average rating and total ratings
