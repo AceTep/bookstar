@@ -20,11 +20,13 @@ urlpatterns = [
     path('author/add/', views.add_author, name='add_author'),
     path('author/edit/<int:author_id>/', views.author_edit, name='author_edit'),
     path('author/delete/<int:author_id>/', views.author_delete, name='author_delete'),
+    path('author/<int:author_id>/', views.author_books, name='author_books'),
     
     # Publishers
     path('publishers/', views.publisher_list, name='publisher_list'),
     path('publisher/add/', views.add_publisher, name='add_publisher'),
     path('publisher/edit/<int:publisher_id>/', views.publisher_edit, name='publisher_edit'),
     path('publisher/delete/<int:publisher_id>/', views.publisher_delete, name='publisher_delete'),
+    path('publisher/<int:publisher_id>/', views.publisher_detail, name='publisher_detail'),
 
 ]

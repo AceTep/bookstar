@@ -209,3 +209,16 @@ def update_book_ratings(book):
     book.average_rating = avg_rating
     book.total_ratings = total_ratings
     book.save()
+
+
+@login_required
+def author_books(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    author_books = Book.objects.filter(authors__id=author_id)
+    return render(request, 'author_books.html', {'author': author, 'author_books': author_books})
+
+@login_required
+def publisher_detail(request, publisher_id):
+    publisher = get_object_or_404(Publisher, pk=publisher_id)
+    publisher_books = Book.objects.filter(publisher=publisher)
+    return render(request, 'publisher_detail.html', {'publisher': publisher, 'publisher_books': publisher_books})

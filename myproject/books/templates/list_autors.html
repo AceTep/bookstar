@@ -1,4 +1,4 @@
-{% extends 'home.html' %}
+{% extends 'navbar.html' %}
 
 {% block content %}
 <h2>List of Authors</h2>
@@ -6,7 +6,7 @@
 <hr>
 <ul>
   {% for author in authors %}
-    <li>{{ author.name }} - <a href="{% url 'author_edit' author.id %}">Edit</a> | <a href="{% url 'author_delete' author.id %}">Delete</a></li>
+    <li><a href="{% url 'author_books' author.id %}">{{ author.name }}</a> - <a href="{% url 'author_edit' author.id %}">Edit</a> | <a href="{% url 'author_delete' author.id %}">Delete</a></li>
   {% empty %}
     <li>No authors found.</li>
   {% endfor %}
