@@ -15,6 +15,7 @@ def home(request):
     return render(request, 'home.html', {'books': books,'form': form})
 
 
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -24,6 +25,8 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -36,14 +39,20 @@ def user_login(request):
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
 
+
+
 def user_logout(request):
     logout(request)
     return redirect('login')  # Redirect to login page after logout
+
+
 
 @login_required
 def home(request):
     books = Book.objects.all()
     return render(request, 'home.html', {'books': books})
+
+
 
 @login_required
 def add_book(request):
@@ -53,6 +62,11 @@ def add_book(request):
             book = form.save(commit=False)
             book.upload_user = request.user
             book.save()
+            # Extract the list of authors from the form data
+            authors = request.POST.getlist('authors')
+            form.cleaned_data['authors'] = authors  # Ensure authors field is set with the list of authors
+            if authors:  # Ensure authors list is not empty
+                book.authors.set(authors)  # Associate authors with the book
             return redirect('home')
     else:
         form = BookForm()
@@ -61,30 +75,32 @@ def add_book(request):
 
 
 
+@login_required
 def add_author(request):
     if request.method == 'POST':
         form = AuthorForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')  # Redirect to the homepage after adding the author
+            return redirect('home')
     else:
         form = AuthorForm()
     return render(request, 'add_author.html', {'form': form})
 
+@login_required
 def add_publisher(request):
     if request.method == 'POST':
         form = PublisherForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')  # Redirect to the homepage after adding the publisher
+            return redirect('home')  
     else:
         form = PublisherForm()
     return render(request, 'add_publisher.html', {'form': form})
 
+@login_required
 def edit_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.user != book.upload_user:
-        # Redirect to a page indicating unauthorized access
         return redirect('home')
 
     if request.method == 'POST':
@@ -103,6 +119,8 @@ def edit_book(request, book_id):
 
     return render(request, 'edit_book.html', {'form': form})
 
+
+@login_required
 def delete_book(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     if request.method == 'POST':
@@ -110,11 +128,12 @@ def delete_book(request, book_id):
         return redirect('home')  # Redirect to the home page after deletion
     return render(request, 'delete_book.html', {'book': book})
 
+
 @login_required
 def book_detail(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     authors = book.authors.all()
-    comments = book.bookcomment_set.all()
+    comments = book.bookcomment_set.all().order_by('-created_at')
     form = CommentForm()
 
     if request.method == 'POST':
@@ -129,6 +148,7 @@ def book_detail(request, book_id):
             return redirect('book_detail', book_id=book_id)
 
     return render(request, 'book_detail.html', {'book': book, 'authors': authors, 'comments': comments, 'form': form})
+
 
 def update_book_ratings(book):
     # Calculate new average rating and total ratings

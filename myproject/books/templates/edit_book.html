@@ -5,7 +5,7 @@
     <h2>Edit Book</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}  <!-- Render form fields as paragraphs -->
+        {{ form.as_p }} 
         <button type="submit" class="submit-author-button">Save Changes</button>
     </form>
 </div>

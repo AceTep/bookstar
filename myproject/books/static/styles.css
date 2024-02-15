@@ -276,3 +276,8 @@ text-align:  left;
 .confirm-delete-button:hover {
     background-color: #1a3c63;
 }
+
+.book-list-container {
+    max-height: 550px; /* Adjust the height as needed */
+    overflow-y: auto; /* Add vertical scrollbar if content overflows */
+}

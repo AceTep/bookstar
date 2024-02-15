@@ -10,19 +10,19 @@
 {% endif %}
 
 <h2>Books</h2>
-<ul class="book-list">
-    {% for book in books %}
-        <li class="book-item">
-            <h2 class="naslov"><a href="{% url 'book_detail' book.id %}" class="book-title">{{ book.title }}</a></h2>
-            <p class="average-rating">Average Rating: {{ book.average_rating|default:"No ratings yet" }}</p>
-            {% if request.user == book.upload_user %}
-                <span class="edit-delete-buttons">
-                    <a href="{% url 'edit_book' book.id %}" class="edit-button">Edit</a> 
-                    <a href="{% url 'delete_book' book.id %}" class="delete-button">Delete</a>
-                </span>
-            {% endif %}
-            <hr>
-        </li>
-    {% endfor %}
-</ul>
+    <ul class="book-list book-list-container">
+        {% for book in books %}
+            <li class="book-item">
+                <h2 class="naslov"><a href="{% url 'book_detail' book.id %}" class="book-title">{{ book.title }}</a></h2>
+                <p class="average-rating">Average Rating: {{ book.average_rating|default:"No ratings yet" }}</p>
+                {% if request.user == book.upload_user %}
+                    <span class="edit-delete-buttons">
+                        <a href="{% url 'edit_book' book.id %}" class="edit-button">Edit</a> 
+                        <a href="{% url 'delete_book' book.id %}" class="delete-button">Delete</a>
+                    </span>
+                {% endif %}
+                <hr>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
