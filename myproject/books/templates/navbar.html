@@ -15,8 +15,8 @@
                 <li class="nav-item"><a href="{% url 'home' %}" class="nav-link">Home</a></li> <!-- Home button -->
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a href="{% url 'add_book' %}" class="nav-link">Add Book</a></li>
-                <li class="nav-item"><a href="{% url 'add_publisher' %}" class="nav-link">Add Publisher</a></li>
-                <li class="nav-item"><a href="{% url 'add_author' %}" class="nav-link">Add Author</a></li>
+                <li class="nav-item"><a href="{% url 'publisher_list' %}" class="nav-link">List Publishers</a></li>
+                <li class="nav-item"><a href="{% url 'author_list' %}" class="nav-link">List Authors</a></li>
                 <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
                 {% else %}
                     <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li>

@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from .models import Book, BookComment
+from .models import Book, BookComment, Author, Publisher
 from .forms import BookForm, AuthorForm, PublisherForm, CommentForm
-from django.db.models import Sum,F, ExpressionWrapper, DecimalField, Avg, Count
+from django.db.models import  Avg, Count
 
 
 def home(request):
@@ -96,6 +96,56 @@ def add_publisher(request):
     else:
         form = PublisherForm()
     return render(request, 'add_publisher.html', {'form': form})
+
+@login_required
+def author_list(request):
+    authors = Author.objects.all()
+    return render(request, 'list_autors.html', {'authors': authors})
+
+@login_required
+def author_edit(request, author_id):
+    author = get_object_or_404(Author, id=author_id)
+    if request.method == 'POST':
+        form = AuthorForm(request.POST, instance=author)
+        if form.is_valid():
+            form.save()
+            return redirect('author_list')
+    else:
+        form = AuthorForm(instance=author)
+    return render(request, 'author_edit.html', {'form': form})
+
+@login_required
+def author_delete(request, author_id):
+    author = get_object_or_404(Author, id=author_id)
+    if request.method == 'POST':
+        author.delete()
+        return redirect('author_list')
+    return render(request, 'author_delete.html', {'author': author})
+
+@login_required
+def publisher_list(request):
+    publishers = Publisher.objects.all()
+    return render(request, 'list_publishers.html', {'publishers': publishers})
+
+@login_required
+def publisher_edit(request, publisher_id):
+    publisher = get_object_or_404(Publisher, id=publisher_id)
+    if request.method == 'POST':
+        form = PublisherForm(request.POST, instance=publisher)
+        if form.is_valid():
+            form.save()
+            return redirect('publisher_list')
+    else:
+        form = PublisherForm(instance=publisher)
+    return render(request, 'publisher_edit.html', {'form': form})
+
+@login_required
+def publisher_delete(request, publisher_id):
+    publisher = get_object_or_404(Publisher, id=publisher_id)
+    if request.method == 'POST':
+        publisher.delete()
+        return redirect('publisher_list')
+    return render(request, 'publisher_delete.html', {'publisher': publisher})
 
 @login_required
 def edit_book(request, book_id):

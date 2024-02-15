@@ -1,0 +1,11 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<h2>Delete Publisher</h2>
+<p>Are you sure you want to delete {{ publisher.name }}?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Yes, delete</button>
+  <a href="{% url 'publisher_list' %}">Cancel</a>
+</form>
+{% endblock %}

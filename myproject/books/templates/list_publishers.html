@@ -1,0 +1,14 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<h2>List of Publishers</h2>
+<a href="{% url 'add_publisher' %}">Add New Publisher</a>
+<hr>
+<ul>
+  {% for publisher in publishers %}
+    <li>{{ publisher.name }} - <a href="{% url 'publisher_edit' publisher.id %}">Edit</a> | <a href="{% url 'publisher_delete' publisher.id %}">Delete</a></li>
+  {% empty %}
+    <li>No publishers found.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
